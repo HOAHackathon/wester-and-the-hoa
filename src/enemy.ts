@@ -1,9 +1,9 @@
-import { Actor, CollisionGroupManager, Vector } from "excalibur";
+import { Actor, CollisionGroupManager, Engine, Vector } from "excalibur";
 import { getAngleTowards } from "./bullet";
 
 export const EnemyCollisionGroup = CollisionGroupManager.create('enemy');
 
-export abstract class Creature extends Actor {
+export abstract class Enemy extends Actor {
     public moveSpeed: number;
     public health: number;
     public target: Vector;
@@ -13,6 +13,12 @@ export abstract class Creature extends Actor {
         if (this.moving) {
             this.vel = Vector.fromAngle(getAngleTowards(this.pos, this.target))
                 .scaleEqual(this.moveSpeed * dt);
+        }
+    }
+
+    public testForDeath(engine: Engine) {
+        if (this.health <= 0) {
+            engine.currentScene.remove(this);
         }
     }
 }

@@ -16,6 +16,8 @@ export class Bullet extends Actor {
     }
 
     override onInitialize(engine: Engine) {
+        const bullet = this;
+
         // bullet despawn timer
         const timer = new Timer({
             fcn: () => {
@@ -29,8 +31,11 @@ export class Bullet extends Actor {
         timer.start();
 
         // bullets damage entities that are not the creator
-        this.on('collisionstart', () => {
-            console.log("bullet hit something");
+        this.on('collisionstart', (event) => {
+            if ('health' in event.other.owner) {
+                event.other.owner.health -= bullet.DAMAGE
+                engine.currentScene.remove(this)
+            }
         })
     }
 

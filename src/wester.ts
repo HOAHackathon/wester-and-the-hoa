@@ -2,7 +2,6 @@
 
 import { Actor, CollisionGroupManager, CollisionType, Color, Engine, Keys, vec, Vector } from "excalibur";
 import { Bullet, getAngleTowards } from "./bullet";
-import { EnemyCollisionGroup } from "./creature";
 
 export const PlayerCollisionGroup = CollisionGroupManager.create('player');
 

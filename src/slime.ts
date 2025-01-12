@@ -1,7 +1,7 @@
 import { CollisionType, Color, Engine, Entity, vec } from "excalibur";
-import { Creature, EnemyCollisionGroup } from "./creature";
+import { Enemy, EnemyCollisionGroup } from "./enemy";
 
-export class Slime extends Creature {
+export class Slime extends Enemy {
     public moveSpeed: number = 12;
     public health: number = 2;
 
@@ -15,7 +15,7 @@ export class Slime extends Creature {
             collisionGroup: EnemyCollisionGroup
         })
     }
-    
+
     override onInitialize(engine: Engine) {
         this.addTag("enemy");
         this.addTag("living");
@@ -32,5 +32,6 @@ export class Slime extends Creature {
         }
 
         this.moveTowardsTarget(dt);
+        this.testForDeath(engine);
     }
 }
