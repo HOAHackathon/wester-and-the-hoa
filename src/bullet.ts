@@ -32,10 +32,11 @@ export class Bullet extends Actor {
 
         // bullets damage entities that are not the creator
         this.on('collisionstart', (event) => {
-            if ('health' in event.other.owner) {
-                event.other.owner.health -= bullet.DAMAGE
-                engine.currentScene.remove(this)
+            if ('dealDamage' in event.other.owner) {
+                event.other.owner.dealDamage(engine, bullet.DAMAGE);
             }
+
+            engine.currentScene.remove(bullet)
         })
     }
 

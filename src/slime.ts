@@ -1,9 +1,13 @@
-import { CollisionType, Color, Engine, Entity, vec } from "excalibur";
+import { CollisionType, Color, Engine, vec } from "excalibur";
 import { Enemy, EnemyCollisionGroup } from "./enemy";
 
 export class Slime extends Enemy {
-    public moveSpeed: number = 12;
     public health: number = 2;
+    public maxHealth: number = 2;
+    public moveSpeed: number = 15;
+
+    public INVINCIBILITY_TIME: number = 0;
+    public DAMAGE: number = 2;
 
     constructor() {
         super({
@@ -22,7 +26,7 @@ export class Slime extends Enemy {
     }
 
     override onPostUpdate(engine: Engine, dt: number): void {
-        const wester: Entity = engine.currentScene.world.queryTags(["player"]).entities[0];
+        const wester = engine.currentScene.world.queryTags(["player"]).entities[0];
 
         if (wester) {
             this.target = wester.pos;

@@ -11,8 +11,8 @@ const game = new Engine({
 });
 
 const wester = new Wester();
-game.add(wester);
 
-game.add(new Slime());
+game.currentScene.add(wester);
+game.currentScene.add(new Slime());
 
 game.start();
