@@ -1,13 +1,18 @@
 // main.ts
-import * as ex from 'excalibur'
+import { Color, DisplayMode, Engine } from 'excalibur';
+import { Wester } from './wester';
+import { Slime } from './slime';
 
-const game = new ex.Engine({
-    width: 400,
-    height: 500,
-    backgroundColor: ex.Color.fromHex("#54C0CA"),
+const game = new Engine({
+    backgroundColor: Color.fromHex("#54C0CA"),
     pixelArt: true,
     pixelRatio: 2,
-    displayMode: ex.DisplayMode.FitScreen
+    displayMode: DisplayMode.FitScreen
 });
+
+const wester = new Wester();
+game.add(wester);
+
+game.add(new Slime());
 
 game.start();
