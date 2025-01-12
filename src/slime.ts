@@ -1,22 +1,21 @@
 import { CollisionType, Color, Engine, vec } from "excalibur";
-import { Enemy, EnemyCollisionGroup } from "./enemy";
+import { Enemy } from "./enemy";
 
 export class Slime extends Enemy {
     public health: number = 2;
     public maxHealth: number = 2;
-    public moveSpeed: number = 15;
+    public moveSpeed: number = 150;
 
     public INVINCIBILITY_TIME: number = 0;
     public DAMAGE: number = 2;
 
-    constructor() {
+    constructor(pos: Vector) {
         super({
-            pos: vec(200, 300),
-            width: 16,
-            height: 16,
+            pos: pos,
+            width: 32,
+            height: 32,
             color: Color.Green,
-            collisionType: CollisionType.Passive,
-            collisionGroup: EnemyCollisionGroup
+            collisionType: CollisionType.Active,
         })
     }
 
@@ -35,7 +34,7 @@ export class Slime extends Enemy {
             this.moving = false;
         }
 
-        this.moveTowardsTarget(dt);
+        this.moveTowardsTarget();
         this.testForDeath(engine);
     }
 }

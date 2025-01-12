@@ -1,8 +1,6 @@
-import { Actor, CollisionGroupManager, Engine, Vector } from "excalibur";
+import { Engine, Vector } from "excalibur";
 import { getAngleTowards } from "./bullet";
 import { LivingEntity } from "./livingentity";
-
-export const EnemyCollisionGroup = CollisionGroupManager.create('enemy');
 
 export abstract class Enemy extends LivingEntity {
     public target: Vector;
@@ -15,10 +13,10 @@ export abstract class Enemy extends LivingEntity {
         }
     }
 
-    public moveTowardsTarget(dt: number) {
+    public moveTowardsTarget() {
         if (this.moving) {
             this.vel = Vector.fromAngle(getAngleTowards(this.pos, this.target))
-                .scaleEqual(this.moveSpeed * dt);
+                .scaleEqual(this.moveSpeed);
         }
     }
 }

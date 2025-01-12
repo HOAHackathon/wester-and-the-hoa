@@ -8,7 +8,7 @@ export class Bullet extends Actor {
         super({
             width: 8,
             height: 8,
-            color: Color.White,
+            color: Color.Black,
             rotation: rotation,
             pos: pos,
             collisionGroup: collisionGroup

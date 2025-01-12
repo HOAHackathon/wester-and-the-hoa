@@ -1,6 +1,6 @@
 // wester.ts
 
-import { Actor, CollisionGroupManager, CollisionType, Color, Engine, Keys, Timer, vec, Vector } from "excalibur";
+import { Camera, CollisionGroupManager, CollisionType, Color, Engine, Keys, Timer, vec, Vector } from "excalibur";
 import { Bullet, getAngleTowards } from "./bullet";
 import { LivingEntity } from "./livingentity";
 
@@ -9,20 +9,20 @@ export const PlayerCollisionGroup = CollisionGroupManager.create('player');
 export class Wester extends LivingEntity {
     public health: number = 10;
     public maxHealth: number = 10;
-    public moveSpeed: number = 30;
-    
+    public moveSpeed: number = 300;
+
     public ammo: number = 6;
     public maxAmmo: number = 6;
     public canShoot: boolean = true;
-    
+
     public INVINCIBILITY_TIME = 1000;
     public GUN_COOLDOWN_TIME = 0.2 * 1000;
 
-    constructor() {
+    constructor(engine: Engine) {
         super({
-            pos: vec(200, 500),
-            width: 16,
-            height: 16,
+            pos: vec(engine.screen.width / 2, engine.screen.height / 2),
+            width: 32,
+            height: 32,
             color: Color.Yellow,
             collisionType: CollisionType.Passive,
             collisionGroup: PlayerCollisionGroup
@@ -74,7 +74,7 @@ export class Wester extends LivingEntity {
         const moveVector: Vector = vec(
             (engine.input.keyboard.isHeld(Keys.A) ? -1 : 0) + (engine.input.keyboard.isHeld(Keys.D) ? 1 : 0),
             (engine.input.keyboard.isHeld(Keys.W) ? -1 : 0) + (engine.input.keyboard.isHeld(Keys.S) ? 1 : 0),
-        ).normalize().scaleEqual(this.moveSpeed * dt);
+        ).normalize().scaleEqual(this.moveSpeed);
 
         this.vel = moveVector;
     }
