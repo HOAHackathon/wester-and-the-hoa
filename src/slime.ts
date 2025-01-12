@@ -1,29 +1,28 @@
-import { Actor, Color, Engine, vec, Vector } from "excalibur";
-import { getAngleTowards } from "./bullet";
-import { Creature } from "./creature";
-import { Wester } from "./wester";
+import { CollisionType, Color, Engine, Entity, vec } from "excalibur";
+import { Creature, EnemyCollisionGroup } from "./creature";
 
 export class Slime extends Creature {
     public moveSpeed: number = 12;
     public health: number = 2;
-    public target: Vector;
-    public moving: boolean;
 
     constructor() {
         super({
             pos: vec(200, 300),
             width: 16,
             height: 16,
-            color: Color.Green
+            color: Color.Green,
+            collisionType: CollisionType.Passive,
+            collisionGroup: EnemyCollisionGroup
         })
     }
     
     override onInitialize(engine: Engine) {
-        
+        this.addTag("enemy");
+        this.addTag("living");
     }
 
     override onPostUpdate(engine: Engine, dt: number): void {
-        const wester = engine.currentScene.world.queryTags(["player"]).entities[0];
+        const wester: Entity = engine.currentScene.world.queryTags(["player"]).entities[0];
 
         if (wester) {
             this.target = wester.pos;

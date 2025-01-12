@@ -1,21 +1,22 @@
-import { Actor, Color, Engine, Timer, vec, Vector } from "excalibur";
+import { Actor, Color, Engine, Entity, Timer, vec, Vector } from "excalibur";
 
 export class Bullet extends Actor {
     public BULLET_SPEED: number = 1000;
     public DAMAGE = 1;
 
-    constructor(pos: Vector, rotation: number) {
+    constructor(pos: Vector, rotation: number, collisionGroup) {
         super({
             width: 8,
             height: 8,
             color: Color.White,
             rotation: rotation,
-            pos: pos
+            pos: pos,
+            collisionGroup: collisionGroup
         })
     }
 
     override onInitialize(engine: Engine) {
-        // despawn timer
+        // bullet despawn timer
         const timer = new Timer({
             fcn: () => {
                 engine.currentScene.remove(this)
@@ -26,6 +27,11 @@ export class Bullet extends Actor {
 
         engine.currentScene.add(timer);
         timer.start();
+
+        // bullets damage entities that are not the creator
+        this.on('collisionstart', () => {
+            console.log("bullet hit something");
+        })
     }
 
     override onPostUpdate(engine: Engine, dt: number): void {
@@ -34,5 +40,5 @@ export class Bullet extends Actor {
 }
 
 export function getAngleTowards(from: Vector, to: Vector) {
-    return Math.atan((to.y - from.y)/(to.x - from.x)) + (to.x > from.x ? 2*Math.PI : Math.PI) || 0;
+    return Math.atan((to.y - from.y) / (to.x - from.x)) + (to.x > from.x ? 2 * Math.PI : Math.PI) || 0;
 }

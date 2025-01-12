@@ -1,7 +1,10 @@
 // wester.ts
 
-import { Actor, Color, Engine, Keys, vec, Vector } from "excalibur";
+import { Actor, CollisionGroupManager, CollisionType, Color, Engine, Keys, vec, Vector } from "excalibur";
 import { Bullet, getAngleTowards } from "./bullet";
+import { EnemyCollisionGroup } from "./creature";
+
+export const PlayerCollisionGroup = CollisionGroupManager.create('player');
 
 export class Wester extends Actor {
     public moveSpeed: number = 30;
@@ -14,13 +17,16 @@ export class Wester extends Actor {
             pos: vec(200, 300),
             width: 16,
             height: 16,
-            color: Color.Yellow
+            color: Color.Yellow,
+            collisionType: CollisionType.Passive,
+            collisionGroup: PlayerCollisionGroup
         })
     }
 
     override onInitialize(engine: Engine) {
         const wester = this;
         wester.addTag("player");
+        wester.addTag("living");
 
         engine.input.pointers.primary.on('down', function (evt) {
             const bullet = new Bullet(
@@ -28,7 +34,8 @@ export class Wester extends Actor {
                 getAngleTowards(
                     wester.pos,
                     engine.input.pointers.primary.lastScreenPos
-                )
+                ),
+                PlayerCollisionGroup
             );
 
             engine.currentScene.add(bullet);

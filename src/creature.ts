@@ -1,5 +1,7 @@
-import { Actor, Engine, Vector } from "excalibur";
+import { Actor, CollisionGroupManager, Vector } from "excalibur";
 import { getAngleTowards } from "./bullet";
+
+export const EnemyCollisionGroup = CollisionGroupManager.create('enemy');
 
 export abstract class Creature extends Actor {
     public moveSpeed: number;
