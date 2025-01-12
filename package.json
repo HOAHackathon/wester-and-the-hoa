@@ -1,0 +1,29 @@
+{
+  "name": "wester-and-the-hoa",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/HOAHackathon/wester-and-the-hoa#readme",
+  "bugs": {
+    "url": "https://github.com/HOAHackathon/wester-and-the-hoa/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HOAHackathon/wester-and-the-hoa.git"
+  },
+  "license": "ISC",
+  "author": "The Home Owner's Association",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "5.7.3",
+    "vite": "6.0.7"
+  },
+  "dependencies": {
+    "excalibur": "0.30.3"
+  }
+}
