@@ -1,0 +1,13 @@
+html, body {
+  background-color: #000;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+/*# sourceMappingURL=index.2cdaf7bc.css.map */
